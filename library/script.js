@@ -62,16 +62,20 @@ for (book of myLibrary) {
 // hook up buttons and dialog
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector("dialog + button");
-const closeButton = document.querySelector("dialog button");
-const confirmButton = document.querySelector("#confirmButton");
+const cancelButton = document.querySelector("#cancelButton");
+const submitButton = document.querySelector("#submitButton");
 
 showButton.addEventListener('click', () => {
     dialog.show();
 });
 
-closeButton.addEventListener('click', () => {
+cancelButton.addEventListener('click', () => {
     dialog.close();
 });
+
+submitButton.addEventListener('click', () => {
+    dialog.close();
+})
 
 
 const form = document.querySelector("form");
@@ -88,11 +92,8 @@ form.addEventListener("formdata", (e) => {
         console.log(entry);
         console.log(typeof entry);
       }
-
-    console.log(data.get("book_title"));
     
     inputBook = new Book(data.get("book_title"), data.get("author"), data.get("page_count"), false);
-    console.log(inputBook.info());
     addBookToLibrary(inputBook);
     addRowToTable(inputBook);
 })

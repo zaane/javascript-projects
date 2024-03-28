@@ -11,14 +11,37 @@
 </head>
 
 <body>
-    <div class ="button-container">
+    <div class="button-container">
         <h1>
             Welcome to my library
         </h1>
-        <dialog>
-            <p>dialoggy</p>
-            <button>Submit</button>
+
+        <dialog id="addBookDialog">
+            <form>
+                <p>Book Info:</p>
+                <div>
+                    <label for="book_title">Title:</label>
+                    <input type="text" id="book_title" name="book_title">
+                </div>
+
+                <div>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author">
+                </div>
+
+                <div>
+                    <label for="page_count">Page count:</label>
+                    <input type="text" id="page_count" name="page_count">
+                </div>
+                <div>
+                    <button id="submitButton" value ="default">Submit</button>
+                    <button value ="cancel" formmethod="dialog">Cancel</button>
+                </div>
+            </form>
+
+
         </dialog>
+
         <button>Add Book</button>
     </div>
 

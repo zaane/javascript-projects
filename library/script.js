@@ -1,14 +1,14 @@
 const myLibrary = [];
 
-function Book(title, author, pageCount, haveRead) {
+function Book(title, author, pageCount, status) {
     this.title = title;
     this.author = author;
     this.pageCount = pageCount;
-    this.haveRead = haveRead;
-    this.haveReadString = haveRead ? "has been read" : "has not been read";
+    this.status = status;
+    this.statusString = status ? "read" : "unread";
 
     this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pageCount} pages, ${this.haveReadString}`;
+        return `${this.title} by ${this.author}, ${this.pageCount} pages`;
     }
 
 }
@@ -41,7 +41,7 @@ function addRowToTable(book) {
 
     const newBookStatus = document.createElement("div");
     newBookStatus.classList.add("entry", "status");
-    newBookStatus.textContent = "ireadit"
+    newBookStatus.textContent = book.statusString;
 
     const newDeleteButton = document.createElement("div");
     newDeleteButton.classList.add("entry", "delete");

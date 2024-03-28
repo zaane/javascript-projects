@@ -13,9 +13,17 @@ function Book(title, author, pageCount, haveRead) {
 
 }
 
-function addBookToLibrary() {
-
+function addBookToLibrary(book) {
+    myLibrary.push(book);
 }
 
 
 const theHobbit = new Book("The Hobbit", "J.R.R. Tolkien", 295, true);
+const theIliad = new Book("The Iliad", "Homer", 509, false);
+const ficciones = new Book("Ficciones", "Jorge Luis Borges", 171, true);
+const theScarletLetter = new Book("The Scarlet Letter", "Nathaniel Hawthorne", 289, false);
+
+addBookToLibrary(theHobbit);
+addBookToLibrary(theIliad);
+addBookToLibrary(ficciones);
+addBookToLibrary(theScarletLetter);

@@ -28,29 +28,9 @@ addBookToLibrary(theIliad);
 addBookToLibrary(ficciones);
 addBookToLibrary(theScarletLetter);
 
-const container = document.querySelector(".container");
-const newRow = document.createElement("div");
-newRow.classList.add("row");
 
-const newBookData = document.createElement("div");
-newBookData.classList.add("entry", "data");
-newBookData.textContent = "hereris my books data";
 
-const newBookStatus = document.createElement("div");
-newBookStatus.classList.add("entry", "status");
-newBookStatus.textContent = "ireadit"
-
-const newDeleteButton = document.createElement("div");
-newDeleteButton.classList.add("entry", "delete");
-newDeleteButton.textContent = "bunton";
-
-newRow.appendChild(newBookData);
-newRow.appendChild(newBookStatus);
-newRow.appendChild(newDeleteButton);
-
-container.appendChild(newRow);
-
-function addRow(book) {
+function addRowToTable(book) {
     const container = document.querySelector(".container");
     const newRow = document.createElement("div");
     newRow.classList.add("row");
@@ -74,4 +54,6 @@ function addRow(book) {
     container.appendChild(newRow);
 }
 
-addRow(theHobbit);
+for (book of myLibrary) {
+    addRowToTable(book);
+}

@@ -5,11 +5,18 @@ function Book(title, author, pageCount, status) {
     this.author = author;
     this.pageCount = pageCount;
     this.status = status;
-    this.statusString = status ? "read" : "unread";
+    
+    this.toggleStatus = function() {
+        this.status = !this.status;
+    }
+    
+    this.statusString = function() {
+        return this.status ? "read" : "unread";
+    };
 
     this.info = function () {
-        return `${this.title} by ${this.author}, ${this.pageCount} pages`;
-    }
+        return `${this.title} by ${this.author}, ${this.pageCount} pages, ${this.statusString()}`;
+    };
 
 }
 
@@ -57,7 +64,6 @@ function addRowToTable(book, index) {
     const newRow = document.createElement("div");
     newRow.classList.add("row");
     newRow.dataset.index = index;
-    console.log(newRow.dataset.index);
 
     const newBookData = makeBookInfoDiv(book);
 
@@ -99,11 +105,13 @@ function deleteRow(rowIndex) {
 }
 
 function toggleStatus(rowIndex) {
-    myLibrary[rowIndex].status = (myLibrary[rowIndex].status === true) ? false : true;
+    myLibrary[rowIndex].toggleStatus();
 
     const row = document.querySelectorAll(`[data-index='${rowIndex}']`)[0];
     const status = row.querySelector(".status");
-    status.textContent = (myLibrary[rowIndex].status === true) ? "📖" : "📘";;
+    status.textContent = (myLibrary[rowIndex].status === true) ? "📖" : "📘";
+
+    console.log(myLibrary[rowIndex].info());
 }
 
 
@@ -136,12 +144,12 @@ form.addEventListener("formdata", (e) => {
     console.log("formdata event fired");
 
     const data = e.formData;
-    for (const entry of data.entries()) {
-        console.log(entry);
-        console.log(typeof entry);
-      }
-    
-    inputBook = new Book(data.get("book_title"), data.get("author"), data.get("page_count"), false);
+
+    const status = (data.get("status") === "read") ? true : false;
+
+    inputBook = new Book(data.get("book_title"), data.get("author"), data.get("page_count"), status);
     addBookToLibrary(inputBook);
-    addRowToTable(inputBook);
+    newIndex = myLibrary.length - 1;
+    console.log(`new index is ${newIndex}`);
+    addRowToTable(inputBook, newIndex);
 })

@@ -68,6 +68,9 @@ function addRowToTable(book, index) {
     const newDeleteButton = document.createElement("button");
     newDeleteButton.classList.add("delete");
     newDeleteButton.textContent = "bUnton";
+    newDeleteButton.addEventListener('click', () => {
+        deleteRow(index);
+    });
 
     newRow.appendChild(newBookData);
     newRow.appendChild(newBookStatus);

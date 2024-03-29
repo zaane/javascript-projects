@@ -28,16 +28,39 @@ addBookToLibrary(theIliad);
 addBookToLibrary(ficciones);
 addBookToLibrary(theScarletLetter);
 
+function makeBookInfoDiv(book) {
+    const bookTitleSpan = document.createElement("span");
+    bookTitleSpan.classList.add("book-title");
+    bookTitleSpan.textContent = book.title;
+    
+    const bookAuthorSpan = document.createElement("span");
+    bookAuthorSpan.classList.add("author");
+    bookAuthorSpan.textContent = `by ${book.author}`;
+    
+    const pageCountSpan = document.createElement("span");
+    pageCountSpan.classList.add("page-count");
+    pageCountSpan.textContent = `${book.pageCount} pages`;
 
+    const bookInfoDiv = document.createElement("div");
+    bookInfoDiv.classList.add("entry", "data");
+
+    bookInfoDiv.appendChild(bookTitleSpan);
+    bookInfoDiv.appendChild(bookAuthorSpan);
+    bookInfoDiv.appendChild(pageCountSpan);
+
+    return bookInfoDiv;
+}
 
 function addRowToTable(book) {
     const container = document.querySelector(".container");
     const newRow = document.createElement("div");
     newRow.classList.add("row");
 
-    const newBookData = document.createElement("div");
-    newBookData.classList.add("entry", "data");
-    newBookData.textContent = book.info();
+    // const newBookData = document.createElement("div");
+    // newBookData.classList.add("entry", "data");
+    // newBookData.textContent = book.info();
+
+    const newBookData = makeBookInfoDiv(book);
 
     const newBookStatus = document.createElement("div");
     newBookStatus.classList.add("entry", "status");
@@ -53,6 +76,7 @@ function addRowToTable(book) {
 
     container.appendChild(newRow);
 }
+
 
 for (book of myLibrary) {
     addRowToTable(book);

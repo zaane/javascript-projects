@@ -19,27 +19,63 @@ button.add-book {
 
 .container {
     margin: 40px auto;
-    width: 400px;
+    width: 500px;
     border: 2px solid black;
     background-color: #893168;
     display: block;
 }
 
 .row {
-    margin: 8px;
+    margin: 4px;
     padding: 2px;
     height: 80px;
-    border: 1px solid white;
-    background-color: #A88FAC;
+    /* border: 1px solid white; */
+    /* background-color: #A88FAC; */
     display: flex;
-    gap: 2px;
+    gap: 4px;
 }
 
 .entry {
+    border-radius: 0.75em;
     padding: 4px;
     border: 1px solid black;
+    background-color: #A88FAC;
+    box-shadow: #555 1px 1px;
+
 }
 
 .entry.data {
-    font-weight: bold;
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 300px;
+}
+
+.entry.data>.book-title {
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+.entry.data>.author {
+    display: block;
+    position: absolute;
+    left: 3em;
+}
+
+.entry.data>.page-count {
+    position: absolute;
+    bottom: 0;
+    right: 0.5em;
+    font-size: 0.9em;
+}
+
+.entry.status {
+    text-align: center;
+    flex-shrink: 0;
+    flex-basis: 75px;
+}
+
+.entry.delete {
+    text-align: center;
+    flex-shrink: 0;
+    flex-basis: 75px;
 }

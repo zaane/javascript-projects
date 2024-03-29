@@ -63,7 +63,10 @@ function addRowToTable(book, index) {
 
     const newBookStatus = document.createElement("div");
     newBookStatus.classList.add("entry", "status");
-    newBookStatus.textContent = book.statusString;
+    newBookStatus.textContent = (book.status === true) ? "📖" : "📘";
+    newBookStatus.addEventListener('click', () => {
+        toggleStatus(index);
+    });
 
     const newDeleteButton = document.createElement("button");
     const trashCanSpan = document.createElement("span");
@@ -81,7 +84,7 @@ function addRowToTable(book, index) {
     newRow.appendChild(newDeleteButton);
 
     container.appendChild(newRow);
-}
+};
 
 myLibrary.forEach(function (book, index) {
     addRowToTable(book, index)
@@ -93,6 +96,14 @@ function deleteRow(rowIndex) {
     if(row) {
         row.remove();
     };
+}
+
+function toggleStatus(rowIndex) {
+    myLibrary[rowIndex].status = (myLibrary[rowIndex].status === true) ? false : true;
+
+    const row = document.querySelectorAll(`[data-index='${rowIndex}']`)[0];
+    const status = row.querySelector(".status");
+    status.textContent = (myLibrary[rowIndex].status === true) ? "📖" : "📘";;
 }
 
 

@@ -75,8 +75,11 @@ button.add-book {
 
 .entry.status {
     text-align: center;
+    padding-top: 15px;
     flex-shrink: 0;
     flex-basis: 75px;
+    font-size: 2em;
+    /* filter: grayscale(1); */
 }
 
 .entry.delete {

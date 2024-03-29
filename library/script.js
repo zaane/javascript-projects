@@ -66,8 +66,12 @@ function addRowToTable(book, index) {
     newBookStatus.textContent = book.statusString;
 
     const newDeleteButton = document.createElement("button");
+    const trashCanSpan = document.createElement("span");
+    trashCanSpan.classList.add("material-symbols-outlined")
+    trashCanSpan.textContent = "delete";
+
     newDeleteButton.classList.add("delete");
-    newDeleteButton.textContent = "bUnton";
+    newDeleteButton.appendChild(trashCanSpan);
     newDeleteButton.addEventListener('click', () => {
         deleteRow(index);
     });

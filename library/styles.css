@@ -87,4 +87,5 @@ button.add-book {
 
 .delete {
     background-color: #999;
+    border-radius: 1em;
 }

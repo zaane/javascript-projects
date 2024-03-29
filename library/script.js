@@ -51,14 +51,12 @@ function makeBookInfoDiv(book) {
     return bookInfoDiv;
 }
 
-function addRowToTable(book) {
+function addRowToTable(book, index) {
+    
     const container = document.querySelector(".container");
     const newRow = document.createElement("div");
     newRow.classList.add("row");
-
-    // const newBookData = document.createElement("div");
-    // newBookData.classList.add("entry", "data");
-    // newBookData.textContent = book.info();
+    console.log(index);
 
     const newBookData = makeBookInfoDiv(book);
 
@@ -66,8 +64,8 @@ function addRowToTable(book) {
     newBookStatus.classList.add("entry", "status");
     newBookStatus.textContent = book.statusString;
 
-    const newDeleteButton = document.createElement("div");
-    newDeleteButton.classList.add("entry", "delete");
+    const newDeleteButton = document.createElement("button");
+    newDeleteButton.classList.add("delete");
     newDeleteButton.textContent = "bUnton";
 
     newRow.appendChild(newBookData);
@@ -78,12 +76,16 @@ function addRowToTable(book) {
 }
 
 
-for (book of myLibrary) {
-    addRowToTable(book);
-}
+
+myLibrary.forEach(function (book, index) {
+    addRowToTable(book, index)
+});
+
+//make a button callback that takes in book id and deletes row with that id
 
 
-// hook up buttons and dialog
+
+// hook up buttons and dialog for adding new books
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector("dialog + button");
 const cancelButton = document.querySelector("#cancelButton");

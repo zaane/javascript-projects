@@ -56,7 +56,8 @@ function addRowToTable(book, index) {
     const container = document.querySelector(".container");
     const newRow = document.createElement("div");
     newRow.classList.add("row");
-    console.log(index);
+    newRow.dataset.index = index;
+    console.log(newRow.dataset.index);
 
     const newBookData = makeBookInfoDiv(book);
 
@@ -75,14 +76,17 @@ function addRowToTable(book, index) {
     container.appendChild(newRow);
 }
 
-
-
 myLibrary.forEach(function (book, index) {
     addRowToTable(book, index)
 });
 
-//make a button callback that takes in book id and deletes row with that id
 
+function deleteRow(rowIndex) {
+    const row = document.querySelectorAll(`[data-index='${rowIndex}']`)[0];
+    if(row) {
+        row.remove();
+    };
+}
 
 
 // hook up buttons and dialog for adding new books

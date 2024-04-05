@@ -101,13 +101,14 @@ const game = (function () {
 
 
 
-let winner = false;
-while (winner === false) {
-    gameboard.print();
-    game.playTurn();
-    winner = gameboard.checkForWinner();
-};
+// let winner = false;
+// while (winner === false) {
+//     gameboard.print();
+//     game.playTurn();
+//     winner = gameboard.checkForWinner();
+// };
 
-console.log(`${winner} wins`);
+// gameboard.print();
+// console.log(`${winner} wins`);
 
 

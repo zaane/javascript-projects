@@ -1,3 +1,18 @@
 body {
     background-color: #333;
 }
+
+.game-area {
+    width: 500px;
+    height: 500px;
+    background-color: #999;
+    margin: 100px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.game-cel {
+    background-color: #333;
+}

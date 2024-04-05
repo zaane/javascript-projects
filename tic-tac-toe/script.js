@@ -1,20 +1,21 @@
 const gameboard = (function () {
-    // const state = [
-    //     [' ', ' ', ' '],
-    //     [' ', ' ', ' '],
-    //     [' ', ' ', ' ']
-    // ];
-
     const state = [
-        ['X', 'X', 'O'],
-        [' ', ' ', 'X'],
-        ['O', ' ', 'X']
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
     ];
 
-    const updateState = (mark, i, j) => { /* TODO: change to player.mark*/
+    // const state = [
+    //     ['X', 'X', 'O'],
+    //     [' ', ' ', 'X'],
+    //     ['O', ' ', 'X']
+    // ];
+
+    const updateState = (player, i, j) => { /* TODO: change to player.mark*/
         if (state[i][j] === ' ') {
-            state[i][j] = mark
+            state[i][j] = player.mark;
         };
+        return state;
     };
 
     function printBoard() {
@@ -25,14 +26,23 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         console.log(boardString);
     };
 
-    return { updateState, printBoard };
+    return { state, updateState, printBoard };
 })();
 
-const calculator = (function () {
-    const add = (a, b) => a + b;
-    const sub = (a, b) => a - b;
-    const mul = (a, b) => a * b;
-    const div = (a, b) => a / b;
-    return { add, sub, mul, div };
-})();
 
+function createPlayer (name, mark) {
+    this.name = name;
+    this.mark = mark;
+    // const markColor = '#FFF';
+
+    let wins = 0;
+
+    const getScore = () => wins;
+    const addWin = () => wins++;
+
+    return { name, mark, getScore, addWin };
+};
+
+
+player1 = createPlayer('Guy', 'X');
+player2 = createPlayer('Gal', 'O');

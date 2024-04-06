@@ -87,14 +87,13 @@ const game = (function () {
     // let roundCount = 0;
     let currentPlayer = player1;
 
-    const playTurn = () => {
-        let rowIndex = prompt(`${currentPlayer.name}: select row (0, 1, or 2)`);
-        let columnIndex = prompt(`${currentPlayer.name}: select column (0, 1, or 2)`);
-        gameboard.update(currentPlayer, rowIndex, columnIndex);
+    const playTurn = (i, j) => {
+        gameboard.update(currentPlayer, i, j);
         currentPlayer = currentPlayer === player1 ? player2 : player1;
+
     };
 
-    return { playTurn };
+    return { playTurn, getCurrentPlayerMark };
 })();
 
 
@@ -102,9 +101,12 @@ const displayController = (function () {
     const gameCels = document.querySelectorAll('.game-cel');
     gameCels.forEach((item) => {
         item.addEventListener('click', () => {
-            console.log(item.id);
+            let i = item.dataset.row;
+            let j = item.dataset.column;
+            console.log(i,j);
         });
     });
+
 
 
     const updateCels = (state) => {

@@ -1,15 +1,15 @@
 const gameboard = (function () {
-    // const state = [
-    //     [' ', ' ', ' '],
-    //     [' ', ' ', ' '],
-    //     [' ', ' ', ' ']
-    // ];
-
     const state = [
-        ['X', 'X', 'O'],
-        [' ', ' ', 'X'],
-        ['O', ' ', 'X']
+        [' ', ' ', ' '],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
     ];
+
+    // const state = [
+    //     ['X', 'X', 'O'],
+    //     [' ', ' ', 'X'],
+    //     ['O', ' ', 'X']
+    // ];
 
     const update = (player, i, j) => {
         if (state[i][j] === ' ') {
@@ -90,25 +90,13 @@ const game = (function () {
     const playTurn = (i, j) => {
         gameboard.update(currentPlayer, i, j);
         currentPlayer = currentPlayer === player1 ? player2 : player1;
-
     };
 
-    return { playTurn, getCurrentPlayerMark };
+    return { playTurn };
 })();
 
 
 const displayController = (function () {
-    const gameCels = document.querySelectorAll('.game-cel');
-    gameCels.forEach((item) => {
-        item.addEventListener('click', () => {
-            let i = item.dataset.row;
-            let j = item.dataset.column;
-            console.log(i,j);
-        });
-    });
-
-
-
     const updateCels = (state) => {
         gameCels[0].textContent = state[0][0];
         gameCels[1].textContent = state[0][1];
@@ -123,6 +111,19 @@ const displayController = (function () {
     
     return { updateCels }
 })();
+
+const gameCels = document.querySelectorAll('.game-cel');
+    gameCels.forEach((item) => {
+        item.addEventListener('click', () => {
+            let i = item.dataset.row;
+            let j = item.dataset.column;
+            console.log(i,j);
+            game.playTurn(i,j);
+            displayController.updateCels(gameboard.state);
+        });
+    });
+
+
 
 // let winner = false;
 // while (winner === false) {

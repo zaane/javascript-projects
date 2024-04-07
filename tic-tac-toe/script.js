@@ -143,3 +143,6 @@ resetButton.addEventListener('click', () => {
 
 
 
+const startCell = document.querySelector('.game-cel[data-row="0"][data-column="0"]');
+startCell.addEventListener('click', () => console.log('first row second column clicked'))
+

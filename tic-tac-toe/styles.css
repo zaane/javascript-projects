@@ -4,6 +4,7 @@ body {
 }
 
 .game-area {
+    position: relative;
     width: 500px;
     height: 500px;
     background-color: #999;
@@ -21,11 +22,20 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .game-cel:hover {
     background-color: #555;
+}
+
+.line {
+    /* z-index: 10; */
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    border: 2px solid firebrick;
+    border-radius: 2px;
+    width: 420px;
 }
 
 .controls {

@@ -36,7 +36,22 @@ body {
     border: 2px solid firebrick;
     border-radius: 2px;
     width: 420px;
+    animation: animate 1s ease-in;
 }
+
+@keyframes animate { 
+    0% { 
+        width: 0; 
+    } 
+
+    50% { 
+        width: 210px; 
+    } 
+
+    100% { 
+        width: 420px; 
+    } 
+} 
 
 .controls {
     width: 250px;

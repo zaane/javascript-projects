@@ -1,15 +1,11 @@
 const gameboard = (function () {
-    const state = [
+    let state = [
         [' ', ' ', ' '],
         [' ', ' ', ' '],
         [' ', ' ', ' ']
     ];
 
-    // const state = [
-    //     ['X', 'X', 'O'],
-    //     [' ', ' ', 'X'],
-    //     ['O', ' ', 'X']
-    // ];
+    const getState = () => state;
 
     const update = (player, i, j) => {
         if (state[i][j] === ' ') {
@@ -28,7 +24,9 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         console.log(boardString);
     };
 
-    function checkForWinner() { //returns winner mark if win, else false. in future, maybe return also the specific row/column/diagonal so we can mark it visually
+
+    //returns winner mark if win, else false. in future, maybe return also the specific row/column/diagonal so we can mark it visually
+    function checkForWinner() { 
         for (let i = 0; i < 3; i++) {
             if (state[i][0] !== ' '
                 && state[i][0] === state[i][1]
@@ -50,24 +48,33 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         if (state[0][0] !== ' '
             && state[0][0] === state[1][1]
             && state[0][0] === state[2][2]) {
-                return state[0][0];
-            }; //check main diagonal for tic-tac-toe
-        
-            if (state[0][2] !== ' '
+            return state[0][0];
+        }; //check main diagonal for tic-tac-toe
+
+        if (state[0][2] !== ' '
             && state[0][2] === state[1][1]
             && state[0][2] === state[2][0]) {
-                return state[0][2];
-            }; //check back diagonal for tic-tac-toe 
-            
+            return state[0][2];
+        }; //check back diagonal for tic-tac-toe 
+
         return false;
     };
 
-    return { state, update, print, checkForWinner };
+    // this kills the board :(
+    // function reset() { 
+    //     gameboard.state = [
+    //         [' ', ' ', ' '],
+    //         [' ', ' ', ' '],
+    //         [' ', ' ', ' ']
+    //     ];
+    // };
+
+    return { getState, update, print, checkForWinner };
 })();
 
 
 function createPlayer(name, mark) {
-    this.name = name;
+    this.name = name; 
     this.mark = mark;
     // const markColor = '#FFF';
 
@@ -84,7 +91,6 @@ player1 = createPlayer('Guy', 'X');  //TODO: let players select their own names
 player2 = createPlayer('Gal', 'O');
 
 const game = (function () {
-    // let roundCount = 0;
     let currentPlayer = player1;
 
     const playTurn = (i, j) => {
@@ -97,7 +103,10 @@ const game = (function () {
 
 
 const displayController = (function () {
-    const updateCels = (state) => {
+    const gameCels = document.querySelectorAll('.game-cel');
+    let state = gameboard.getState();
+
+    const updateScreen = () => {
         gameCels[0].textContent = state[0][0];
         gameCels[1].textContent = state[0][1];
         gameCels[2].textContent = state[0][2];
@@ -108,31 +117,25 @@ const displayController = (function () {
         gameCels[7].textContent = state[2][1];
         gameCels[8].textContent = state[2][2];
     }
-    
-    return { updateCels }
-})();
 
-const gameCels = document.querySelectorAll('.game-cel');
+    function clickHandler(e) {
+        const selectedRow = e.target.dataset.row;
+        const selectedColumn = e.target.dataset.column;
+        game.playTurn(selectedRow, selectedColumn);
+        updateScreen();
+    }
+    
     gameCels.forEach((item) => {
-        item.addEventListener('click', () => {
-            let i = item.dataset.row;
-            let j = item.dataset.column;
-            console.log(i,j);
-            game.playTurn(i,j);
-            displayController.updateCels(gameboard.state);
-        });
+        item.addEventListener('click', clickHandler);
     });
 
+    return { updateScreen }
+})();
 
 
-// let winner = false;
-// while (winner === false) {
-//     gameboard.print();
-//     game.playTurn();
-//     winner = gameboard.checkForWinner();
-// };
+resetButton = document.querySelector('button.reset');
+resetButton.addEventListener('click', () => console.log('reset pressed'));
 
-// gameboard.print();
-// console.log(`${winner} wins`);
+
 
 

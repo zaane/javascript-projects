@@ -21,9 +21,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .game-cel:hover {
     background-color: #555;
+}
+
+.controls {
+    width: 250px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+.controls > button {
+    width: 20rem;
+    height: 5rem;
+    font-size: 2.5rem;
+    background-color: rgb(50, 50, 216);
+    border-radius: 3rem;
+    color: #ddd;
 }

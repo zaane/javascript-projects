@@ -61,15 +61,15 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
     };
 
     // this kills the board :(
-    // function reset() { 
-    //     gameboard.state = [
-    //         [' ', ' ', ' '],
-    //         [' ', ' ', ' '],
-    //         [' ', ' ', ' ']
-    //     ];
-    // };
+    function reset() { 
+        state = [
+            [' ', ' ', ' '],
+            [' ', ' ', ' '],
+            [' ', ' ', ' ']
+        ];
+    };
 
-    return { getState, update, print, checkForWinner };
+    return { getState, update, print, reset, checkForWinner };
 })();
 
 
@@ -104,9 +104,10 @@ const game = (function () {
 
 const displayController = (function () {
     const gameCels = document.querySelectorAll('.game-cel');
-    let state = gameboard.getState();
 
     const updateScreen = () => {
+        let state = gameboard.getState();
+
         gameCels[0].textContent = state[0][0];
         gameCels[1].textContent = state[0][1];
         gameCels[2].textContent = state[0][2];
@@ -134,7 +135,10 @@ const displayController = (function () {
 
 
 resetButton = document.querySelector('button.reset');
-resetButton.addEventListener('click', () => console.log('reset pressed'));
+resetButton.addEventListener('click', () => {
+    gameboard.reset();
+    displayController.updateScreen();
+});
 
 
 

@@ -36,20 +36,21 @@ body {
     border: 2px solid firebrick;
     border-radius: 2px;
     width: 420px;
+    transform-origin: 0px 0px;
     animation: animate 1s ease-in;
 }
 
 @keyframes animate { 
     0% { 
-        width: 0; 
+        transform: scale(0,1); 
     } 
 
     50% { 
-        width: 210px; 
+        transform: scale(.5,1); 
     } 
 
     100% { 
-        width: 420px; 
+        transform: scale(1,1); 
     } 
 } 
 

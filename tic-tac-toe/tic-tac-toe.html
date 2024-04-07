@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tic tac toe</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
-    <div class="game-area">
-        <div class="game-cel" data-row="0" data-column="0"></div>
-        <div class="game-cel" data-row="0" data-column="1"></div>
-        <div class="game-cel" data-row="0" data-column="2"></div>
-        <div class="game-cel" data-row="1" data-column="0"></div>
-        <div class="game-cel" data-row="1" data-column="1"></div>
-        <div class="game-cel" data-row="1" data-column="2"></div>
-        <div class="game-cel" data-row="2" data-column="0"></div>
-        <div class="game-cel" data-row="2" data-column="1"></div>
-        <div class="game-cel" data-row="2" data-column="2"></div>
-        
-        
-        <!-- <div class="vertical-line"></div> -->
-        <div class="horizontal-line"></div>
+    <div class="container">
+        <div class="game-area">
+            <div class="game-cel" data-row="0" data-column="0"></div>
+            <div class="game-cel" data-row="0" data-column="1"></div>
+            <div class="game-cel" data-row="0" data-column="2"></div>
+            <div class="game-cel" data-row="1" data-column="0"></div>
+            <div class="game-cel" data-row="1" data-column="1"></div>
+            <div class="game-cel" data-row="1" data-column="2"></div>
+            <div class="game-cel" data-row="2" data-column="0"></div>
+            <div class="game-cel" data-row="2" data-column="1"></div>
+            <div class="game-cel" data-row="2" data-column="2"></div>
+        </div>
+        <div class="line-canvas">
+            <div class="vertical line"></div>
+            <div class="horizontal line"></div>
+            <div class="diagonal line"></div>
         </div>
     </div>
 
@@ -31,4 +35,5 @@
 
     <script src="./script.js"></script>
 </body>
+
 </html>

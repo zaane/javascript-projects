@@ -28,7 +28,24 @@ body {
     background-color: #555;
 }
 
-.line {
+.horizontal-line {
+    /* z-index: 10; */
+    
+    position: absolute;
+    top: 80px;
+    left: 40px;
+    border: 2px solid firebrick;
+    border-radius: 2px;
+    width: 0px;
+
+    transition: width 1s;
+}
+
+.showing {
+    width: 420px;
+}
+
+.vertical-line {
     /* z-index: 10; */
     position: absolute;
     top: 80px;
@@ -36,9 +53,12 @@ body {
     border: 2px solid firebrick;
     border-radius: 2px;
     width: 420px;
+    transform: rotate(90deg);
     transform-origin: 0px 0px;
     animation: animate 1s ease-in;
 }
+
+
 
 @keyframes animate { 
     0% { 

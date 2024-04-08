@@ -24,15 +24,13 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         console.log(boardString);
     };
 
-
-    //returns winner mark if win, else false. in future, maybe return also the specific row/column/diagonal so we can mark it visually
     function checkForWinner() { 
         for (let i = 0; i < 3; i++) {
             if (state[i][0] !== ' '
                 && state[i][0] === state[i][1]
                 && state[i][0] === state[i][2]) {
 
-                return state[i][0];
+                return {type:'row', index: i, mark:state[i][0]} ;
             }; // check rows for tic-tac-toe
         };
 
@@ -41,26 +39,25 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
                 && state[0][i] === state[1][i]
                 && state[0][i] === state[2][i]) {
 
-                return state[0][i];
+                return {type:'column', index: i, mark: state[0][i] };
             }; // check columns for tic-tac-toe
         };
 
         if (state[0][0] !== ' '
             && state[0][0] === state[1][1]
             && state[0][0] === state[2][2]) {
-            return state[0][0];
+            return {type:'diagonal', index: 0, mark: state[0][0] };
         }; //check main diagonal for tic-tac-toe
 
         if (state[0][2] !== ' '
             && state[0][2] === state[1][1]
             && state[0][2] === state[2][0]) {
-            return state[0][2];
+            return {type: 'diagonal', index: 2, mark: state[0][2] };
         }; //check back diagonal for tic-tac-toe 
 
         return false;
     };
 
-    // this kills the board :(
     function reset() { 
         state = [
             [' ', ' ', ' '],
@@ -117,18 +114,23 @@ const displayController = (function () {
         gameCels[6].textContent = state[2][0];
         gameCels[7].textContent = state[2][1];
         gameCels[8].textContent = state[2][2];
-    }
+    };
 
     function clickHandler(e) {
         const selectedRow = e.target.dataset.row;
         const selectedColumn = e.target.dataset.column;
         game.playTurn(selectedRow, selectedColumn);
         updateScreen();
-    }
+    };
     
     gameCels.forEach((item) => {
         item.addEventListener('click', clickHandler);
     });
+
+
+    // const drawLine = () => {
+    //     if 
+    // }
 
     return { updateScreen }
 })();
@@ -139,8 +141,6 @@ resetButton.addEventListener('click', () => {
     gameboard.reset();
     displayController.updateScreen();
 });
-
-
 
 
 const startCell = document.querySelector('.game-cel[data-row="0"][data-column="0"]');

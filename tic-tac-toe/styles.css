@@ -35,31 +35,26 @@ body {
 
 .line {
     position: absolute;
+    top: 0px;
+    left: 0px;
     border: 2px solid firebrick;
     background-color: firebrick;
     border-radius: 2px;
     width: 0px;
+    transform-origin: 0px 0px;
     transition: width 1s;
 }
 
 .horizontal.line {
-    /* top: 80px; */
-    top: 420px;
-    left: 40px;
+    transform: translateY(80px) translateX(40px);
 }
 
 .vertical.line {
-    top: 40px;
-    left: 80px;
-    transform-origin: 0px 0px;
-    transform: rotate(90deg);
+    transform: translateY(40px) translateX(250px) rotate(90deg) ;
 }
 
 .diagonal.line {
-    top:40px;
-    left: 40px;
-    transform-origin: 0px 0px;
-    transform: rotate(45deg);
+    transform: translate(28px, 28px) rotate(45deg);
 }
 
 .showing {

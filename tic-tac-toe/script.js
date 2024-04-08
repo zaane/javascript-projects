@@ -24,13 +24,13 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         console.log(boardString);
     };
 
-    function checkForWinner() { 
+    function checkForWinner() {
         for (let i = 0; i < 3; i++) {
             if (state[i][0] !== ' '
                 && state[i][0] === state[i][1]
                 && state[i][0] === state[i][2]) {
 
-                return {type:'row', index: i, mark:state[i][0]} ;
+                return { type: 'horizontal', index: i, mark: state[i][0] };
             }; // check rows for tic-tac-toe
         };
 
@@ -39,26 +39,26 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
                 && state[0][i] === state[1][i]
                 && state[0][i] === state[2][i]) {
 
-                return {type:'column', index: i, mark: state[0][i] };
+                return { type: 'vertical', index: i, mark: state[0][i] };
             }; // check columns for tic-tac-toe
         };
 
         if (state[0][0] !== ' '
             && state[0][0] === state[1][1]
             && state[0][0] === state[2][2]) {
-            return {type:'diagonal', index: 0, mark: state[0][0] };
+            return { type: 'diagonal', index: 0, mark: state[0][0] };
         }; //check main diagonal for tic-tac-toe
 
         if (state[0][2] !== ' '
             && state[0][2] === state[1][1]
             && state[0][2] === state[2][0]) {
-            return {type: 'diagonal', index: 2, mark: state[0][2] };
+            return { type: 'diagonal', index: 2, mark: state[0][2] };
         }; //check back diagonal for tic-tac-toe 
 
         return false;
     };
 
-    function reset() { 
+    function reset() {
         state = [
             [' ', ' ', ' '],
             [' ', ' ', ' '],
@@ -71,7 +71,7 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
 
 
 function createPlayer(name, mark) {
-    this.name = name; 
+    this.name = name;
     this.mark = mark;
     // const markColor = '#FFF';
 
@@ -122,17 +122,62 @@ const displayController = (function () {
         game.playTurn(selectedRow, selectedColumn);
         updateScreen();
     };
-    
+
     gameCels.forEach((item) => {
         item.addEventListener('click', clickHandler);
     });
 
 
-    // const drawLine = () => {
-    //     if 
-    // }
+    const drawWinLine = () => {
+        if (gameboard.checkForWinner()) {
+            const win = gameboard.checkForWinner();
 
-    return { updateScreen }
+            const lineCanvas = document.querySelector('.line-canvas');
+            const winLine = document.createElement('div');
+            
+            winLine.classList.add(win.type, "line");
+            winLine.classList.add('showing');
+
+
+            let offset;
+            switch (win.index) {
+                case 0:
+                    offset = 80;
+                    break;
+                case 1:
+                    offset = 250;
+                    break;
+                case 2:
+                    offset = 420;
+                    break;
+                default:
+                    console.log('win index invalid');
+            };
+
+            switch (win.type) {
+                case 'horizontal':
+                    winLine.style.transform =
+                        `translateY(${offset}px) translateX(40px)`;
+                    break;
+                case 'vertical':
+                    winLine.style.transform =
+                    `translateY(40px) translateX(${offset}px) rotate(90deg)`;
+                    break;
+                case 'diagonal':
+                    winLine.style.transform =
+                    `translate(28px, 28px) rotate(45deg)`;
+                    break;
+                default:
+                    console.log('win type invalid');
+            };
+
+            console.log(winLine.classList)
+
+            lineCanvas.appendChild(winLine);
+        };
+    }
+    updateScreen();
+    return { updateScreen, drawWinLine }
 })();
 
 
@@ -143,6 +188,5 @@ resetButton.addEventListener('click', () => {
 });
 
 
-const startCell = document.querySelector('.game-cel[data-row="0"][data-column="0"]');
-startCell.addEventListener('click', () => console.log('first row second column clicked'))
 
+displayController.drawWinLine();

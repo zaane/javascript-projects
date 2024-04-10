@@ -58,6 +58,10 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         return false;
     };
 
+    function isEmpty(i, j) {
+        return state[i][j] === ' ' ? true : false;
+    };
+
     function reset() {
         state = [
             [' ', ' ', ' '],
@@ -66,7 +70,7 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         ];
     };
 
-    return { getState, update, print, reset, checkForWinner };
+    return { getState, update, print, reset, checkForWinner, isEmpty };
 })();
 
 
@@ -91,8 +95,12 @@ const game = (function () {
     let currentPlayer = player1;
 
     const playTurn = (i, j) => {
-        gameboard.update(currentPlayer, i, j);
-        currentPlayer = currentPlayer === player1 ? player2 : player1;
+        if (gameboard.isEmpty(i, j)) {
+            gameboard.update(currentPlayer, i, j);
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+        } else {
+            return null;
+        }
     };
 
     return { playTurn };
@@ -133,10 +141,11 @@ const displayController = (function () {
     });
 
 
+    const lineCanvas = document.querySelector('.line-canvas');
+
     const drawWinLine = () => {
         const win = gameboard.checkForWinner();
 
-        const lineCanvas = document.querySelector('.line-canvas');
         const winLine = document.createElement('div');
         winLine.classList.add(win.type, "line");
 
@@ -170,26 +179,32 @@ const displayController = (function () {
                     `translate(28px, 28px) rotate(45deg)`;
                 break;
             case 'diagonal2':
-            winLine.style.transform =
-                `translate(28px, 472px) rotate(-45deg)`;
-            break;
+                winLine.style.transform =
+                    `translate(28px, 472px) rotate(-45deg)`;
+                break;
             default:
                 console.log('win type invalid');
         };
 
         lineCanvas.appendChild(winLine);
-        setTimeout(() => {winLine.classList.add('showing')}, 100);
+        setTimeout(() => { winLine.classList.add('showing') }, 100);
     };
+
+    const clearLineCanvas = () => {
+        while (lineCanvas.firstChild)
+            lineCanvas.removeChild(lineCanvas.firstChild);
+    }
 
     updateScreen();
 
-    return { updateScreen, drawWinLine }
+    return { updateScreen, drawWinLine, clearLineCanvas }
 })();
 
 
 resetButton = document.querySelector('button.reset');
 resetButton.addEventListener('click', () => {
     gameboard.reset();
+    displayController.clearLineCanvas();
     displayController.updateScreen();
 });
 

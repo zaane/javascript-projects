@@ -46,13 +46,13 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
         if (state[0][0] !== ' '
             && state[0][0] === state[1][1]
             && state[0][0] === state[2][2]) {
-            return { type: 'diagonal', index: 0, mark: state[0][0] };
+            return { type: 'diagonal0', index: 0, mark: state[0][0] };
         }; //check main diagonal for tic-tac-toe
 
         if (state[0][2] !== ' '
             && state[0][2] === state[1][1]
             && state[0][2] === state[2][0]) {
-            return { type: 'diagonal', index: 2, mark: state[0][2] };
+            return { type: 'diagonal2', index: 2, mark: state[0][2] };
         }; //check back diagonal for tic-tac-toe 
 
         return false;
@@ -165,10 +165,14 @@ const displayController = (function () {
                 winLine.style.transform =
                     `translateY(40px) translateX(${offset}px) rotate(90deg)`;
                 break;
-            case 'diagonal':
+            case 'diagonal0':
                 winLine.style.transform =
                     `translate(28px, 28px) rotate(45deg)`;
                 break;
+            case 'diagonal2':
+            winLine.style.transform =
+                `translate(28px, 472px) rotate(-45deg)`;
+            break;
             default:
                 console.log('win type invalid');
         };

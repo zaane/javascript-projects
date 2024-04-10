@@ -45,7 +45,7 @@ body {
     transition: width 1s;
 }
 
-.horizontal.line {
+/* .horizontal.line {
     transform: translateY(80px) translateX(40px);
 }
 
@@ -55,16 +55,19 @@ body {
 
 .diagonal.line {
     transform: translate(28px, 28px) rotate(45deg);
-}
+} */
 
 .showing {
     width: 420px;
 }
 
-.diagonal.line.showing {
+.diagonal0.line.showing {
     width: 588px;
 }
 
+.diagonal2.line.showing {
+    width: 588px;
+}
 
 .controls {
     width: 250px;

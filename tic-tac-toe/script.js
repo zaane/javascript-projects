@@ -121,6 +121,11 @@ const displayController = (function () {
         const selectedColumn = e.target.dataset.column;
         game.playTurn(selectedRow, selectedColumn);
         updateScreen();
+
+        if (gameboard.checkForWinner()) {
+            drawWinLine();
+        }
+
     };
 
     gameCels.forEach((item) => {
@@ -129,54 +134,51 @@ const displayController = (function () {
 
 
     const drawWinLine = () => {
-        if (gameboard.checkForWinner()) {
-            const win = gameboard.checkForWinner();
+        const win = gameboard.checkForWinner();
 
-            const lineCanvas = document.querySelector('.line-canvas');
-            const winLine = document.createElement('div');
-            
-            winLine.classList.add(win.type, "line");
-            winLine.classList.add('showing');
+        const lineCanvas = document.querySelector('.line-canvas');
+        const winLine = document.createElement('div');
+        winLine.classList.add(win.type, "line");
 
 
-            let offset;
-            switch (win.index) {
-                case 0:
-                    offset = 80;
-                    break;
-                case 1:
-                    offset = 250;
-                    break;
-                case 2:
-                    offset = 420;
-                    break;
-                default:
-                    console.log('win index invalid');
-            };
-
-            switch (win.type) {
-                case 'horizontal':
-                    winLine.style.transform =
-                        `translateY(${offset}px) translateX(40px)`;
-                    break;
-                case 'vertical':
-                    winLine.style.transform =
-                    `translateY(40px) translateX(${offset}px) rotate(90deg)`;
-                    break;
-                case 'diagonal':
-                    winLine.style.transform =
-                    `translate(28px, 28px) rotate(45deg)`;
-                    break;
-                default:
-                    console.log('win type invalid');
-            };
-
-            console.log(winLine.classList)
-
-            lineCanvas.appendChild(winLine);
+        let offset;
+        switch (win.index) {
+            case 0:
+                offset = 80;
+                break;
+            case 1:
+                offset = 250;
+                break;
+            case 2:
+                offset = 420;
+                break;
+            default:
+                console.log('win index invalid');
         };
-    }
+
+        switch (win.type) {
+            case 'horizontal':
+                winLine.style.transform =
+                    `translateY(${offset}px) translateX(40px)`;
+                break;
+            case 'vertical':
+                winLine.style.transform =
+                    `translateY(40px) translateX(${offset}px) rotate(90deg)`;
+                break;
+            case 'diagonal':
+                winLine.style.transform =
+                    `translate(28px, 28px) rotate(45deg)`;
+                break;
+            default:
+                console.log('win type invalid');
+        };
+
+        lineCanvas.appendChild(winLine);
+        setTimeout(() => {winLine.classList.add('showing')}, 100);
+    };
+
     updateScreen();
+
     return { updateScreen, drawWinLine }
 })();
 
@@ -188,5 +190,3 @@ resetButton.addEventListener('click', () => {
 });
 
 
-
-displayController.drawWinLine();

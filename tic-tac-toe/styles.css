@@ -33,6 +33,19 @@ body {
     background-color: #555;
 }
 
+.shake {
+    animation: horizontal-shake 0.2s 1;
+}
+
+@keyframes horizontal-shake {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
+   }
+
+
 .line {
     position: absolute;
     top: 0px;
@@ -68,6 +81,12 @@ body {
 .diagonal2.line.showing {
     width: 588px;
 }
+
+
+
+
+
+
 
 .controls {
     width: 250px;

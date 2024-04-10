@@ -99,7 +99,7 @@ const game = (function () {
             gameboard.update(currentPlayer, i, j);
             currentPlayer = currentPlayer === player1 ? player2 : player1;
         } else {
-            return null;
+            displayController.shakeScreen();
         }
     };
 
@@ -108,6 +108,7 @@ const game = (function () {
 
 
 const displayController = (function () {
+    const gameArea = document.querySelector('.game-area');
     const gameCels = document.querySelectorAll('.game-cel');
 
     const updateScreen = () => {
@@ -139,6 +140,11 @@ const displayController = (function () {
     gameCels.forEach((item) => {
         item.addEventListener('click', clickHandler);
     });
+
+    const shakeScreen = () => {
+        gameArea.classList.toggle('shake');
+        setTimeout(() => {gameArea.classList.toggle('shake')}, 200);
+    }
 
 
     const lineCanvas = document.querySelector('.line-canvas');
@@ -197,7 +203,7 @@ const displayController = (function () {
 
     updateScreen();
 
-    return { updateScreen, drawWinLine, clearLineCanvas }
+    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas }
 })();
 
 

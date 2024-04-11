@@ -133,17 +133,26 @@ const displayController = (function () {
 
         if (gameboard.checkForWinner()) {
             drawWinLine();
+            removeListeners();
         }
 
     };
 
-    gameCels.forEach((item) => {
-        item.addEventListener('click', clickHandler);
-    });
+    function addListeners() {
+        gameCels.forEach((item) => {
+            item.addEventListener('click', clickHandler);
+        });
+    };
+
+    function removeListeners() {
+        gameCels.forEach((item) => {
+            item.removeEventListener('click', clickHandler);
+        });
+    };
 
     const shakeScreen = () => {
         gameArea.classList.toggle('shake');
-        setTimeout(() => {gameArea.classList.toggle('shake')}, 200);
+        setTimeout(() => { gameArea.classList.toggle('shake') }, 200);
     }
 
 
@@ -203,15 +212,18 @@ const displayController = (function () {
 
     updateScreen();
 
-    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas }
+    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners }
 })();
 
 
 resetButton = document.querySelector('button.reset');
 resetButton.addEventListener('click', () => {
     gameboard.reset();
+    displayController.addListeners();
     displayController.clearLineCanvas();
     displayController.updateScreen();
 });
 
 
+
+displayController.addListeners();

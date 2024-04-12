@@ -224,6 +224,38 @@ resetButton.addEventListener('click', () => {
     displayController.updateScreen();
 });
 
+const popUpController = (function () {
+    const nameDialog = document.querySelector("#name-dialog");
+    const submitButton = document.querySelector("#submit-button");
+    const form = document.querySelector("form");
 
+    form.addEventListener('submit', (e) => {
+        new FormData(form);
+    });
+
+    form.addEventListener("formdata", (e) => {
+        const data = e.formData;
+        const player1Name = 
+            data.get("player_1") === "" 
+            ? "Player 1"
+            : data.get("player_1");
+         
+        const player2Name = 
+            data.get("player_2") === ""
+            ? "Player 2"
+            : data.get("player_2");
+
+        console.log({player1Name, player2Name});
+
+    })
+    
+
+    function showNameInput() {
+        nameDialog.showModal();
+    }
+
+    return {showNameInput}
+})();
 
 displayController.addListeners();
+popUpController.showNameInput();

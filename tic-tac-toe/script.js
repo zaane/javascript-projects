@@ -103,19 +103,24 @@ const game = (function () {
     };
 
     const winHandler = () => {
+        displayController.drawWinLine();
+        displayController.removeListeners();
+
         win = gameboard.checkForWinner();
         mark = win.mark;
-        
+        let winner;
+
         if (mark === player1.mark) {
-            const winner = player1;
+            winner = player1;
             winner.addWin();
         } else if (mark === player2.mark) {
-            const winner = player2;
+            winner = player2;
             winner.addWin();
         };
 
         displayController.updateScores();
-
+        popUpController.showWinScreen();
+        return winner;
     };
 
     return { playTurn, winHandler };
@@ -125,7 +130,7 @@ const game = (function () {
 const displayController = (function () {
     const gameArea = document.querySelector('.game-area');
     const gameCels = document.querySelectorAll('.game-cel');
-    
+
     const setNames = (player1Name, player2Name) => {
         const player1NameDiv = document.querySelector('.player1.scoreboard .name');
         const player2NameDiv = document.querySelector('.player2.scoreboard .name');
@@ -163,8 +168,6 @@ const displayController = (function () {
         updateScreen();
 
         if (gameboard.checkForWinner()) {
-            drawWinLine();
-            removeListeners();
             game.winHandler();
         }
 
@@ -243,34 +246,33 @@ const displayController = (function () {
 
     updateScreen();
 
-    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners, setNames, updateScores }
+    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners, removeListeners, setNames, updateScores }
 })();
 
 
 
 const popUpController = (function () {
     const nameDialog = document.querySelector("#name-dialog");
-    const submitButton = document.querySelector("#submit-button");
     const form = document.querySelector("form");
     let player1Name;
     let player2Name;
 
-    function createPlayers () {
+    function createPlayers() {
         form.addEventListener('submit', (e) => {
             new FormData(form);
         });
-    
+
         form.addEventListener("formdata", (e) => {
             const data = e.formData;
-            player1Name = 
-                data.get("player_1") === "" 
-                ? "Player 1"
-                : data.get("player_1");
-             
-            player2Name = 
+            player1Name =
+                data.get("player_1") === ""
+                    ? "Player 1"
+                    : data.get("player_1");
+
+            player2Name =
                 data.get("player_2") === ""
-                ? "Player 2"
-                : data.get("player_2");
+                    ? "Player 2"
+                    : data.get("player_2");
 
             player1.name = player1Name;
             player2.name = player2Name;
@@ -287,16 +289,24 @@ const popUpController = (function () {
         nameDialog.showModal();
     }
 
-    return {showNameInput}
+
+    const winDialog = document.querySelector('#win-dialog');
+    resetButton = document.querySelector('#win-dialog button');
+    resetButton.addEventListener('click', () => {
+        gameboard.reset();
+        displayController.addListeners();
+        displayController.clearLineCanvas();
+        displayController.updateScreen();
+        winDialog.close();
+    });
+
+    function showWinScreen() {
+        setTimeout(() => {winDialog.showModal()}, 1400);
+    }
+
+    return { showNameInput, showWinScreen }
 })();
 
 displayController.addListeners();
 popUpController.showNameInput();
 
-resetButton = document.querySelector('button.reset');
-resetButton.addEventListener('click', () => {
-    gameboard.reset();
-    displayController.addListeners();
-    displayController.clearLineCanvas();
-    displayController.updateScreen();
-});

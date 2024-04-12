@@ -125,24 +125,40 @@ body {
     width: 628px;
 }
 
-
-
-
-
-
-
-.controls {
-    width: 250px;
-    margin: 20px auto;
-    display: flex;
-    justify-content: center;
+dialog {
+    background-color: rgb(221, 221, 221, 0.9);
+    
 }
 
-.controls>button {
-    width: 20rem;
-    height: 5rem;
-    font-size: 2.5rem;
-    background-color: rgb(50, 50, 216);
-    border-radius: 3rem;
-    color: #ddd;
+dialog, dialog form {
+    text-align: center;
+    font-size: 2rem;
+    margin: 50px auto;
+}
+
+dialog> *, dialog form > * {
+    background: transparent;
+    margin: 1rem;
+}
+
+label {
+    font-style: italic;
+}
+
+input {
+    font-size: inherit;
+    background-color: inherit;
+    width: 50%;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+input:focus {
+    outline: none;
+    background-color: rgb(0, 128, 128, 0.5);
+    border-bottom: 3px solid black;
+}
+
+button {
+    font-size: inherit;
 }

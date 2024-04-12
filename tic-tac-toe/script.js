@@ -55,6 +55,12 @@ ${state[2][0]} | ${state[2][1]} | ${state[2][2]}
             return { type: 'diagonal2', index: 2, mark: state[0][2] };
         }; //check back diagonal for tic-tac-toe 
 
+        if (!state[0].includes(' ')
+            && !state[1].includes(' ')
+            && !state[2].includes(' ')) {
+            return { type: 'draw', index: null, mark: null }
+        }; //check for draw
+
         return false;
     };
 
@@ -87,8 +93,9 @@ function createPlayer(name, mark) {
     return { name, mark, getScore, addWin };
 };
 
-const player1 = createPlayer("Player 1", 'X')
-const player2 = createPlayer("Player 2", 'O')
+const player1 = createPlayer("Player 1", 'X');
+const player2 = createPlayer("Player 2", 'O');
+const draw = createPlayer("Nobody", ' ');
 
 const game = (function () {
     let currentPlayer = player1;
@@ -103,24 +110,31 @@ const game = (function () {
     };
 
     const winHandler = () => {
-        displayController.drawWinLine();
+
         displayController.removeListeners();
 
         win = gameboard.checkForWinner();
-        mark = win.mark;
-        let winner;
 
-        if (mark === player1.mark) {
-            winner = player1;
+        if (win.type == 'draw') {
+            winner = draw;
             winner.addWin();
-        } else if (mark === player2.mark) {
-            winner = player2;
-            winner.addWin();
+            popUpController.showWinScreen('Nobody');
+        } else {
+            displayController.drawWinLine();
+            mark = win.mark;
+            let winner;
+
+            if (mark === player1.mark) {
+                winner = player1;
+                winner.addWin();
+            } else if (mark === player2.mark) {
+                winner = player2;
+                winner.addWin();
+            };
+
+            displayController.updateScores();
+            popUpController.showWinScreen(winner.name);
         };
-
-        displayController.updateScores();
-        popUpController.showWinScreen();
-        return winner;
     };
 
     return { playTurn, winHandler };
@@ -291,6 +305,8 @@ const popUpController = (function () {
 
 
     const winDialog = document.querySelector('#win-dialog');
+    const winDialogText = document.querySelector('#win-dialog .win-text');
+
     resetButton = document.querySelector('#win-dialog button');
     resetButton.addEventListener('click', () => {
         gameboard.reset();
@@ -300,9 +316,15 @@ const popUpController = (function () {
         winDialog.close();
     });
 
-    function showWinScreen() {
-        setTimeout(() => {winDialog.showModal()}, 1400);
-    }
+    function showWinScreen(name) {
+        waitTime = name === 'Nobody'
+        ? 500
+        : 1350;
+        winDialogText.textContent = `${name} wins! 
+The score is now ${player1.getScore()} - ${player2.getScore()}`;
+        setTimeout(() => { winDialog.showModal() }, waitTime);
+
+    };
 
     return { showNameInput, showWinScreen }
 })();

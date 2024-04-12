@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-    margin: 100px 200px;
+    margin: 100px 200px; /*TODO: fix alignment of scores and game board*/
     display: flex;
     gap: 2rem;
 }

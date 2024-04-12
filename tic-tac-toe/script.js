@@ -87,9 +87,8 @@ function createPlayer(name, mark) {
     return { name, mark, getScore, addWin };
 };
 
-
-player1 = createPlayer('Guy', 'X');  //TODO: let players select their own names
-player2 = createPlayer('Gal', 'O');
+const player1 = createPlayer("Player 1", 'X')
+const player2 = createPlayer("Player 2", 'O')
 
 const game = (function () {
     let currentPlayer = player1;
@@ -110,6 +109,14 @@ const game = (function () {
 const displayController = (function () {
     const gameArea = document.querySelector('.game-area');
     const gameCels = document.querySelectorAll('.game-cel');
+    
+    const setNames = (player1Name, player2Name) => {
+        const player1NameDiv = document.querySelector('.player1.scoreboard .name');
+        const player2NameDiv = document.querySelector('.player2.scoreboard .name');
+
+        player1NameDiv.textContent = player1Name;
+        player2NameDiv.textContent = player2Name;
+    }
 
     const updateScreen = () => {
         let state = gameboard.getState();
@@ -157,7 +164,6 @@ const displayController = (function () {
 
 
     const lineCanvas = document.querySelector('.line-canvas');
-
     const drawWinLine = () => {
         const win = gameboard.checkForWinner();
 
@@ -212,43 +218,45 @@ const displayController = (function () {
 
     updateScreen();
 
-    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners }
+    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners, setNames }
 })();
 
 
-resetButton = document.querySelector('button.reset');
-resetButton.addEventListener('click', () => {
-    gameboard.reset();
-    displayController.addListeners();
-    displayController.clearLineCanvas();
-    displayController.updateScreen();
-});
 
 const popUpController = (function () {
     const nameDialog = document.querySelector("#name-dialog");
     const submitButton = document.querySelector("#submit-button");
     const form = document.querySelector("form");
+    let player1Name;
+    let player2Name;
 
-    form.addEventListener('submit', (e) => {
-        new FormData(form);
-    });
-
-    form.addEventListener("formdata", (e) => {
-        const data = e.formData;
-        const player1Name = 
-            data.get("player_1") === "" 
-            ? "Player 1"
-            : data.get("player_1");
-         
-        const player2Name = 
-            data.get("player_2") === ""
-            ? "Player 2"
-            : data.get("player_2");
-
-        console.log({player1Name, player2Name});
-
-    })
+    function createPlayers () {
+        form.addEventListener('submit', (e) => {
+            new FormData(form);
+        });
     
+        form.addEventListener("formdata", (e) => {
+            const data = e.formData;
+            player1Name = 
+                data.get("player_1") === "" 
+                ? "Player 1"
+                : data.get("player_1");
+             
+            player2Name = 
+                data.get("player_2") === ""
+                ? "Player 2"
+                : data.get("player_2");
+
+            player1.name = player1Name;
+            player2.name = player2Name;
+
+            displayController.setNames(player1Name, player2Name);
+
+        });
+    };
+
+    createPlayers();
+
 
     function showNameInput() {
         nameDialog.showModal();
@@ -258,4 +266,12 @@ const popUpController = (function () {
 })();
 
 displayController.addListeners();
-// popUpController.showNameInput();
+popUpController.showNameInput();
+
+resetButton = document.querySelector('button.reset');
+resetButton.addEventListener('click', () => {
+    gameboard.reset();
+    displayController.addListeners();
+    displayController.clearLineCanvas();
+    displayController.updateScreen();
+});

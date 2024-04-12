@@ -4,13 +4,13 @@ body {
 }
 
 .container {
-    margin: 100px auto;
+    margin: 100px 200px;
     display: flex;
-    justify-content: center;
-    gap: 4rem;
+    gap: 2rem;
 }
 
 .scoreboard {
+    flex:1;
     color: #ddd;
     /* border: 2px solid #ddd; */
     display: flex;
@@ -29,9 +29,13 @@ body {
 }
 
 .game-container {
+    /* border: 2px solid #ddd; */
     position: relative;
     width: 500px;
     height: 500px;
+    display: flex;
+    justify-content: center;
+
 }
 
 .game-area {

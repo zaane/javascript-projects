@@ -1,16 +1,23 @@
 body {
     background-color: #333;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* background-image: linear-gradient(45deg,
+            magenta,
+            rebeccapurple,
+            dodgerblue,
+            green);
+    background-attachment: fixed; */
 }
 
 .container {
-    margin: 100px 200px; /*TODO: fix alignment of scores and game board*/
+    margin: 100px 200px;
+    /*TODO: fix alignment of scores and game board*/
     display: flex;
     gap: 2rem;
 }
 
 .scoreboard {
-    flex:1;
+    flex: 1;
     color: #ddd;
     /* border: 2px solid #ddd; */
     display: flex;
@@ -41,11 +48,12 @@ body {
 .game-area {
     width: 500px;
     height: 500px;
-    background-color: #999;
+    background-color: #bbb;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 10px;
+
 }
 
 .game-cel {
@@ -127,16 +135,19 @@ body {
 
 dialog {
     background-color: rgb(221, 221, 221, 0.9);
-    
+
 }
 
-dialog, dialog form {
+
+dialog,
+dialog form {
     text-align: center;
     font-size: 2rem;
     margin: 60px auto;
 }
 
-dialog> *, dialog form > * {
+dialog>*,
+dialog form>* {
     background: transparent;
     margin: 1rem;
 }
@@ -159,13 +170,16 @@ input:focus {
 }
 
 #player_1:focus {
-    background-color: rgb(0, 128, 128, 0.5);
+    background-color: rgb(255, 0, 255, 0.25)
 }
+
 #player_2:focus {
-    background-color: rgba(128, 0, 100, 0.5);
+    background-color: rgb(0, 128, 0, 0.25);
 }
 
 button {
     margin-top: 2rem;
+    padding: 1rem;
     font-size: inherit;
+    border-radius: 3rem;
 }

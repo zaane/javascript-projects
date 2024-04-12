@@ -102,7 +102,23 @@ const game = (function () {
         }
     };
 
-    return { playTurn };
+    const winHandler = () => {
+        win = gameboard.checkForWinner();
+        mark = win.mark;
+        
+        if (mark === player1.mark) {
+            const winner = player1;
+            winner.addWin();
+        } else if (mark === player2.mark) {
+            const winner = player2;
+            winner.addWin();
+        };
+
+        displayController.updateScores();
+
+    };
+
+    return { playTurn, winHandler };
 })();
 
 
@@ -117,6 +133,14 @@ const displayController = (function () {
         player1NameDiv.textContent = player1Name;
         player2NameDiv.textContent = player2Name;
     }
+
+    const updateScores = () => {
+        const player1ScoreDiv = document.querySelector('.player1.scoreboard .score');
+        const player2ScoreDiv = document.querySelector('.player2.scoreboard .score');
+
+        player1ScoreDiv.textContent = player1.getScore();
+        player2ScoreDiv.textContent = player2.getScore();
+    };
 
     const updateScreen = () => {
         let state = gameboard.getState();
@@ -141,6 +165,7 @@ const displayController = (function () {
         if (gameboard.checkForWinner()) {
             drawWinLine();
             removeListeners();
+            game.winHandler();
         }
 
     };
@@ -218,7 +243,7 @@ const displayController = (function () {
 
     updateScreen();
 
-    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners, setNames }
+    return { updateScreen, shakeScreen, drawWinLine, clearLineCanvas, addListeners, setNames, updateScores }
 })();
 
 

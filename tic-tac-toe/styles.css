@@ -4,8 +4,32 @@ body {
 }
 
 .container {
-    position: relative;
     margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+
+.scoreboard {
+    color: #ddd;
+    /* border: 2px solid #ddd; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+.scoreboard .name {
+    font-size: 4rem;
+    /* text-decoration: underline; */
+}
+
+.scoreboard .score {
+    font-size: 5rem;
+}
+
+.game-container {
+    position: relative;
     width: 500px;
     height: 500px;
 }
@@ -39,12 +63,26 @@ body {
 }
 
 @keyframes horizontal-shake {
-    0% { transform: translateX(0) }
-    25% { transform: translateX(5px) }
-    50% { transform: translateX(-5px) }
-    75% { transform: translateX(5px) }
-    100% { transform: translateX(0) }
-   }
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(5px)
+    }
+
+    50% {
+        transform: translateX(-5px)
+    }
+
+    75% {
+        transform: translateX(5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
+}
 
 
 .line {

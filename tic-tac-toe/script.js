@@ -258,4 +258,4 @@ const popUpController = (function () {
 })();
 
 displayController.addListeners();
-popUpController.showNameInput();
+// popUpController.showNameInput();

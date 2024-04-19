@@ -91,16 +91,71 @@ img {
     display: block;
 }
 
+.bg-primary {
+    background: var(--clr-primary-500);
+}
 
-header {
-    background-color: var(--clr-primary-300);
+.bg-secondary {
+    background: var(--clr-secondary-500);
+}
+
+
+.primary-header {
+    padding-block: 1rem;
+    margin-block-end: 3rem;
+    background: var(--clr-accent-200);
+    color: var(--clr-primary-500);
+}
+
+.primary-header__layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: fit-content;
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 .nav-list {
+    margin: 0;
+    padding: 0;
+    width: fit-content;
     list-style: none;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     gap: 1rem;
+}
+
+.nav-button {
+    border: none;
+    padding: 0.5rem 1rem;
+    background-color: var(--clr-secondary-300);
+    font-size: inherit;
+}
+
+.nav-button:hover {
+    background-color: var(--clr-primary-400);
+}
+
+.nav-button:active {
+    background-color: var(--clr-primary-500);
+}
+
+.welcome-text {
+    font-size: var(--fs-900);
+    font-style: italic;
+    line-height: 1.1;
+}
+
+.flow>*+* {
+    margin-top: var(--flow-spacing, 1em);
+}
+
+.section-padding {
+    padding-block: 2.5rem;
 }
